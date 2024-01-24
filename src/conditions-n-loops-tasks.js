@@ -385,8 +385,23 @@ function rotateMatrix(matrix) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const sortArr = arr;
+  let i = 0;
+  let j;
+  while (i < sortArr.length) {
+    j = i + 1;
+    while (j < sortArr.length) {
+      if (sortArr[j] < sortArr[i]) {
+        const temp = sortArr[i];
+        sortArr[i] = sortArr[j];
+        sortArr[j] = temp;
+      }
+      j += 1;
+    }
+    i += 1;
+  }
+  return arr;
 }
 
 /**
@@ -406,8 +421,42 @@ function sortByAsc(/* arr */) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(str, iterations) {
+  let shuffleStr = Object.assign(str);
+  let n = 0;
+  do {
+    let strEven = '';
+    let strOdd = '';
+
+    for (let i = 0; i < shuffleStr.length; i += 1) {
+      if (i % 2 === 0) {
+        strEven += shuffleStr[i];
+      } else {
+        strOdd += shuffleStr[i];
+      }
+    }
+    shuffleStr = strEven + strOdd;
+    n += 1;
+  } while (shuffleStr !== str);
+
+  const lastItter = iterations % n;
+
+  let shuffleStr1 = Object.assign(str);
+  for (let j = 0; j < lastItter; j += 1) {
+    let strEven = '';
+    let strOdd = '';
+
+    for (let i = 0; i < shuffleStr1.length; i += 1) {
+      if (i % 2 === 0) {
+        strEven += shuffleStr1[i];
+      } else {
+        strOdd += shuffleStr1[i];
+      }
+    }
+    shuffleStr1 = strEven + strOdd;
+  }
+
+  return shuffleStr1;
 }
 
 /**
@@ -428,6 +477,13 @@ function shuffleChar(/* str, iterations */) {
  * @returns {number} The nearest larger number, or original number if none exists.
  */
 function getNearestBigger(/* number */) {
+  /* 
+  Following is the algorithm for finding the next greater number. 
+
+1) Traverse the given number from rightmost digit, keep traversing till you find a digit which is smaller than the previously traversed digit. For example, if the input number is “534976”, we stop at 4 because 4 is smaller than next digit 9. If we do not find such a digit, then output is “Not Possible”.
+2) Now search the right side of above found digit ‘d’ for the smallest digit greater than ‘d’. For “534976″, the right side of 4 contains “976”. The smallest digit greater than 4 is 6.
+3) Swap the above found two digits, we get 536974 in above example.
+4) Now sort all digits from position next to ‘d’ to the end of number. The number that we get after sorting is the output. For above example, we sort digits in bold 536974. We get “536479” which is the next greater number for input 534976. */
   throw new Error('Not implemented');
 }
 
